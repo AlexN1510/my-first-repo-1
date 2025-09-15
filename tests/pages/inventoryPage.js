@@ -54,7 +54,7 @@ export class InventoryPage {
           }
           async addMostExpensiveItemToCart() {
              await this.selectOption(this.typeSort, { value: 'hilo' });
-             await this.page.waitForTimeout(500);
+             await this.page.waitForTimeout(500); // таймаут можно убрать, должны автовэйтеры сработать. 
              await this.page.locator('.inventory_item:first-child .btn_primary').click();
          }
         

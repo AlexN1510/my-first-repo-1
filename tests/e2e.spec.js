@@ -6,25 +6,25 @@ import { CheckoutStepOnePage } from './pages/checkoutStepOnePage';
 import { CheckoutStepTwoPage } from './pages/checkoutStepTwoPage';
 import { CheckoutCompletePage } from './pages/checkoutCompletePage';
 
-test('Успешный логин', async({page}) => {
+test('Успешный логин', async({page}) => {   // Название теста не описывает то, что он проверяет
    const loginPage = new LoginPage(page); 
    const inventoryPage = new InventoryPage(page);
    const cartPage = new CartPage(page);
    const checkoutStepOnePage = new CheckoutStepOnePage(page);
    const checkoutStepTwoPage = new CheckoutStepTwoPage (page);
-   const checkoutCompletePage = new CheckoutCompletePage (page);
+   const checkoutCompletePage = new CheckoutCompletePage (page); // добавьте отступ
    await loginPage.open();
    await loginPage.login('standard_user', 'secret_sauce');
-   await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+   await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html') // Здесь тоже нужен отступ
    const pageTitle = await inventoryPage.getPageTitle ();
-   expect(pageTitle).toBe('Products');
+   expect(pageTitle).toBe('Products'); // добавьте отступ 
    await inventoryPage.addMostExpensiveItemToCart();
    await inventoryPage.openCart();
-   await expect(page).toHaveURL('https://www.saucedemo.com/cart.html')
+   await expect(page).toHaveURL('https://www.saucedemo.com/cart.html') // После каждого expect нужен отсуп. Разделяйте код логически.
    await cartPage.checkItemInCart("Sauce Labs Fleece Jacket");
    await cartPage.goToCheckout();
    await checkoutStepOnePage.fillUserInfo("Test", "User", "12345");
    await checkoutStepTwoPage.finishCheckout();
    const completionMessage = await checkoutCompletePage.getCompletionMessage();
    expect(completionMessage).toBe('Thank you for your order!'); 
-   }   )
+   }   ) // В целом общее замечание, обязательно поработать над форматированием.
